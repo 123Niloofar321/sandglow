@@ -1,0 +1,8 @@
+# Satie sounds and player are downloaded locally (not shared publicly)
+satie/audio/
+satie/runtime/
+satie/samples*.json
+# made by calibration, specific to each setup
+sandglow_config.json
+__pycache__/
+.DS_Store
