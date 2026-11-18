@@ -1,0 +1,325 @@
+# Sandglow is a gallery art installation: a real sandbox with: the developer's layout, as fixtures
+world Sandglow is a gallery art installation: a real sandbox with
+  seed 1
+  size 20
+  terrain relief 0 roughness 0
+  ground sand weight 1
+  ground dirt weight 0.5
+  ground mud weight 0.5
+  ground water weight 0.5
+  fixture sandbox sandbox size 1.6x0.15x1 material sand at 0,0
+  weather rain 0 wind 0.2 fog 0
+  time 10:00 season summer temp 18
+
+level_reference 70
+# the place itself: warm, still tidal shore in the mangroves
+gen hara_shore
+    prompt Persian Gulf mangrove shoreline at low tide, small waves lapping over a wide mudflat, gulls calling now and then and an occasional heron croak, warm still air, no wind, no people, field recording, seamless ambience loop, consistent texture
+    duration 30
+    loopable
+
+2 * loop hara_shore
+    source_id hara_bed
+    bed
+    zone forest strict
+    spl 40
+    visual none
+    randomstart
+
+# fiddler and mud crabs clicking among the pencil roots
+oneshot community/mud-crab-making-short-cluster every 5to12
+    source_id hara_crabs
+    zone forest strict
+    radius 0.6
+    at sandbox
+    spl 38
+    distance_model free_field_v1
+    visual sphere
+
+# a heron somewhere in the mangroves
+oneshot gen single western reef heron giving a harsh guttural croak, close dry recording every 14to32
+    source_id hara_heron_call
+    zone forest strict
+    place 0 4 18
+    move static
+    spl 70
+    filter lowpass cutoff 1500
+    distance_model free_field_v1
+    variants 2
+    visual sphere
+
+# startled birds lift off the shallows: a burst of wings and a heron's alarm croak
+on birds_takeoff gen single western reef heron giving a harsh guttural croak, close dry recording
+    source_id hara_alarm
+    zone forest strict
+    radius 0.3
+    at hand
+    spl 64
+    cooldown 1.2
+    distance_model free_field_v1
+    variants 2
+    visual sphere
+
+on birds_takeoff community/sudden-burst-wings-clapping
+    source_id hara_wings
+    zone forest strict
+    radius 0.2
+    at hand
+    spl 62
+    cooldown 0.5
+    distance_model free_field_v1
+    visual sphere
+
+# the hand in the sea water
+on ripple community/one-playful-hand-splash
+    source_id hara_splash
+    zone forest strict
+    radius 0.15
+    at hand
+    spl follow hand_speed 0to1 44to56
+    cooldown 0.35
+    distance_model free_field_v1
+    visual sphere
+
+on ripple community/one-restrained-retreat-3
+    source_id hara_retreat
+    zone forest strict
+    radius 0.15
+    at hand
+    spl follow hand_speed 0to1 40to50
+    cooldown 0.6
+    distance_model free_field_v1
+    visual sphere
+
+# digging opens a channel: water gurgles into the scooped mud
+on dig gen single hand scooping wet tidal mud as sea water gurgles in, soft suction and trickling water, close dry recording
+    source_id hara_dig
+    zone forest strict
+    radius 0.15
+    at hand
+    spl follow hand_speed 0to1 48to60
+    cooldown 0.2
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+# piling makes mudflat: thick wet mud pushed up, water draining off
+on pile gen single hand pushing wet tidal mud into a low bank, thick squelch and water draining off, close dry recording
+    source_id hara_pile
+    zone forest strict
+    radius 0.15
+    at hand
+    spl follow hand_speed 0to1 47to59
+    cooldown 0.2
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+2 * loop synth dreamy hypnotic soft electronic pad, warm rounded sustained chords with slow harmonic evolution, no percussion, no sharp attacks
+    source_id neon_pad
+    bed
+    zone neon strict
+    spl 39
+    visual none
+    randomstart
+
+on dig gen single short synthetic granular scoop, rounded electronic grains cascading into an electric shimmer, smooth attack and brief release
+    gen_key neon_dig_84ade5d6
+    source_id neon_dig
+    radius 0.15
+    zone neon strict
+    at hand
+    spl follow hand_speed 0to1 47to59
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on pile gen single short synthetic granular push, rounded electronic grains gathering into a silky electric shimmer, smooth attack and brief release
+    gen_key neon_pile_2d71068e
+    source_id neon_pile
+    radius 0.15
+    zone neon strict
+    at hand
+    spl follow hand_speed 0to1 47to59
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+gen galaxy_space
+    prompt sustained low smooth space hum with slowly flickering crystalline overtones, no pulses or impacts, seamless ambience loop, consistent texture
+    duration 30
+    loopable
+
+2 * loop galaxy_space
+    source_id galaxy_background
+    bed
+    zone galaxy strict
+    spl 35
+    visual none
+    randomstart
+
+on dig gen single airy cosmic granular swish, fine sparkling particles scattering with a smooth breathy sweep, brief rounded envelope
+    gen_key galaxy_dig_ebfcfffa
+    source_id galaxy_dig
+    radius 0.15
+    zone galaxy strict
+    at hand
+    spl follow hand_speed 0to1 46to58
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on pile gen single airy cosmic granular swish, fine sparkling particles gathering with a smooth breathy sweep, brief rounded envelope
+    gen_key galaxy_pile_f0c7464a
+    source_id galaxy_pile
+    radius 0.15
+    zone galaxy strict
+    at hand
+    spl follow hand_speed 0to1 46to58
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on shooting_star gen single airy swoosh ending in a delicate crystalline sparkle, smooth rounded attack, short complete event
+    source_id galaxy_shooting_star
+    zone galaxy strict
+    place 0 2 0
+    move static
+    spl 55
+    cooldown 0.8
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on planet_throw gen single deep rounded whoosh with a smooth low midrange body and a short airy tail
+    source_id galaxy_planet_throw
+    radius 0.2
+    zone galaxy strict
+    at hand
+    spl 60
+    cooldown 0.5
+    distance_model free_field_v1
+    variants 2
+    visual sphere
+
+on black_hole gen single descending rounded low rumble, falling pitch and contracting texture, audible bass body without sharp distortion, short complete event
+    source_id galaxy_black_hole
+    radius 0.3
+    zone galaxy strict
+    at sandbox
+    spl 59
+    cooldown 1.5
+    distance_model free_field_v1
+    variants 2
+    visual sphere
+
+on planet_return gen single gentle rising glass chime, rounded mallet onset and a short clear ascending tonal flourish, dry recording
+    source_id galaxy_planet_return
+    radius 0.2
+    zone galaxy strict
+    at sandbox
+    spl 55
+    cooldown 0.7
+    distance_model free_field_v1
+    variants 2
+    visual sphere
+
+loop small-gentle-waves-lapping-wet
+    source_id classic_lakeshore
+    radius 0.8
+    zone classic strict
+    at sandbox
+    spl 43
+    distance_model free_field_v1
+    visual sphere
+
+2 * loop wind-light-steady
+    source_id classic_breeze
+    bed
+    zone classic strict
+    spl 33
+    visual none
+    randomstart
+
+on dig gen single bare hand scooping loose dry beach sand, crisp fine grains sliding and settling, no tool, close dry recording
+    source_id classic_dig
+    radius 0.15
+    zone classic strict
+    at hand
+    spl follow hand_speed 0to1 48to61
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on pile gen single bare hand pushing loose dry beach sand into a small mound, granular friction and grains cascading, no tool, close dry recording
+    source_id classic_pile
+    radius 0.15
+    zone classic strict
+    at hand
+    spl follow hand_speed 0to1 48to61
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+gen marsh_twilight
+    prompt temperate twilight marsh field recording, frogs croaking in irregular phrases with pauses, crickets chirring and insects trilling, still weather, no birds or people, seamless ambience loop, consistent texture
+    duration 30
+    loopable
+
+2 * loop marsh_twilight
+    source_id marsh_background
+    bed
+    zone marsh strict
+    spl 39
+    visual none
+    randomstart
+
+on dig gen single hand scooping saturated marsh mud, rounded wet mud suction and a short squelch, close dry recording
+    source_id marsh_dig
+    radius 0.15
+    zone marsh strict
+    at hand
+    spl follow hand_speed 0to1 49to62
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on pile gen single hand pushing saturated marsh mud, thick wet mud folding and squelching under pressure, close dry recording
+    source_id marsh_pile
+    radius 0.15
+    zone marsh strict
+    at hand
+    spl follow hand_speed 0to1 49to62
+    cooldown 0.18
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on ripple gen single hand swirl through shallow water, gentle liquid slosh followed by a few small drips, close dry recording
+    source_id marsh_ripple
+    radius 0.2
+    zone marsh strict
+    at hand
+    spl follow hand_speed 0to1 47to58
+    cooldown 0.3
+    distance_model free_field_v1
+    variants 3
+    visual sphere
+
+on lotus_rise gen single rounded water bloop as a lotus bud breaks the water surface, one small bubble releasing, close dry recording
+    source_id marsh_lotus_rise
+    radius 0.15
+    zone marsh strict
+    at hand
+    spl 54
+    cooldown 0.4
+    distance_model free_field_v1
+    variants 3
+    visual sphere
